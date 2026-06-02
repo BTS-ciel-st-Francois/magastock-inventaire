@@ -8,11 +8,7 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)$ index.php?page=$1 [QSA,L]
 
-<FilesMatch "\.(sql|sqlite|env|log|md|json|lock|sh|bak)$">
-    Require all denied
-</FilesMatch>
-
-<FilesMatch "^(config|database|functions)">
+<FilesMatch "\.(sql|sqlite|env|log|json|lock|sh|bak)$">
     Require all denied
 </FilesMatch>
 
@@ -39,9 +35,3 @@ RewriteRule ^(.*)$ index.php?page=$1 [QSA,L]
     ExpiresByType image/gif "access plus 1 year"
     ExpiresByType image/svg+xml "access plus 1 year"
 </IfModule>
-
-php_flag display_errors Off
-php_flag log_errors On
-php_value session.cookie_httponly 1
-php_value session.cookie_samesite Strict
-php_value session.use_strict_mode 1
