@@ -1,10 +1,13 @@
 <?php
 ob_start();
 
+$isHttps = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
+    || (isset($_SERVER['SERVER_PORT']) && (int) $_SERVER['SERVER_PORT'] === 443);
+
 session_set_cookie_params([
     'lifetime' => 0,
     'path'     => '/',
-    'secure'   => true,
+    'secure'   => $isHttps,
     'httponly' => true,
     'samesite' => 'Lax',
 ]);
@@ -154,6 +157,11 @@ switch ($page) {
         break;
 
     case 'users':
+        $user = getCurrentUser();
+        if (!$user || $user['role'] !== 'admin') {
+            header('Location: /dashboard');
+            exit;
+        }
         include __DIR__ . '/templates/users/index.php';
         include __DIR__ . '/templates/base/footer.php';
         break;

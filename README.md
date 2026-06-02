@@ -60,5 +60,13 @@ Ouvrir ensuite [http://localhost:8000](http://localhost:8000) dans le navigateur
 
 ## Base de données
 
-SQLite est utilisé en développement local.  
-MySQL est prévu pour une version future en production (seul le fichier `config/database.php` sera à adapter).
+Par défaut, l'application utilise SQLite (`database/magastock.sqlite`) en développement local.
+
+Pour utiliser MySQL, définir les variables d'environnement suivantes avant de lancer l'application :
+
+- `DB_DRIVER=mysql`
+- `DB_HOST`
+- `DB_PORT`
+- `DB_NAME`
+- `DB_USER`
+- `DB_PASS`
