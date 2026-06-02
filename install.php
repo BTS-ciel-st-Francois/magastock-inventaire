@@ -31,9 +31,9 @@ try {
 
     if ($alreadyInstalled) {
         if (isset($_SESSION['user'])) {
-            header('Location: /dashboard');
+            header('Location: index.php?page=dashboard');
         } else {
-            header('Location: /login');
+            header('Location: index.php?page=login');
         }
         exit;
     }
@@ -109,7 +109,7 @@ $success = empty($errors);
 
 if ($success && isset($_POST['delete_self'])) {
     unlink(__FILE__);
-    header('Location: /login');
+    header('Location: index.php?page=login');
     exit;
 }
 

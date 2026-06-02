@@ -10,7 +10,7 @@ $products  = getAllProducts();
 
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2>Produits</h2>
-        <a href="/products_create" class="btn btn-primary">
+        <a href="index.php?page=products_create" class="btn btn-primary">
             <i class="bi bi-plus-circle me-1"></i>Nouveau produit
         </a>
     </div>
@@ -47,11 +47,11 @@ $products  = getAllProducts();
                     </td>
                     <td><?= $product['alert_threshold'] ?></td>
                     <td>
-                        <a href="/products_edit?id=<?= $product['id'] ?>"
+                        <a href="index.php?page=products_edit&id=<?= $product['id'] ?>"
                            class="btn btn-sm btn-outline-primary me-1">
                             <i class="bi bi-pencil"></i>
                         </a>
-                        <a href="/products_delete?id=<?= $product['id'] ?>"
+                        <a href="index.php?page=products_delete&id=<?= $product['id'] ?>"
                            class="btn btn-sm btn-outline-danger"
                            onclick="return confirm('Supprimer ce produit ?')">
                             <i class="bi bi-trash"></i>

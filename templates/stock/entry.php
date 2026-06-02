@@ -19,7 +19,7 @@ $products  = getAllProducts();
 
     <div class="card shadow-sm">
         <div class="card-body">
-            <form method="POST" action="/stock_entry">
+            <form method="POST" action="index.php?page=stock_entry">
                 <div class="row g-3">
                     <div class="col-md-6">
                         <label for="product_id" class="form-label">Produit <span class="text-danger">*</span></label>

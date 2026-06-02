@@ -18,7 +18,7 @@ $categories = $pdo->query('SELECT * FROM categories ORDER BY name ASC')->fetchAl
     <?php if (!empty($product)): ?>
     <div class="card shadow-sm">
         <div class="card-body">
-            <form method="POST" action="/products_edit?id=<?= $product['id'] ?>">
+            <form method="POST" action="index.php?page=products_edit&id=<?= $product['id'] ?>">
                 <div class="row g-3">
                     <div class="col-md-4">
                         <label for="reference" class="form-label">Référence <span class="text-danger">*</span></label>
@@ -62,7 +62,7 @@ $categories = $pdo->query('SELECT * FROM categories ORDER BY name ASC')->fetchAl
                     <button type="submit" class="btn btn-primary me-2">
                         <i class="bi bi-check-circle me-1"></i>Enregistrer
                     </button>
-                    <a href="/products" class="btn btn-secondary">Annuler</a>
+                    <a href="index.php?page=products" class="btn btn-secondary">Annuler</a>
                 </div>
             </form>
         </div>

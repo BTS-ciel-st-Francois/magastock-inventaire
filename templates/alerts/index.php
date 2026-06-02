@@ -48,7 +48,7 @@ $lowProducts = $stmt->fetchAll();
                         <td><span class="badge bg-danger"><?= $product['quantity'] ?></span></td>
                         <td><?= $product['alert_threshold'] ?></td>
                         <td>
-                            <a href="/stock_entry" class="btn btn-sm btn-success">
+                            <a href="index.php?page=stock_entry" class="btn btn-sm btn-success">
                                 <i class="bi bi-arrow-down-circle me-1"></i>Entrée stock
                             </a>
                         </td>

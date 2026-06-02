@@ -21,17 +21,16 @@ try {
     $checkPdo = getDatabaseConnection();
     $checkPdo->query('SELECT 1 FROM users LIMIT 1');
 } catch (PDOException $e) {
-    header('Location: /install.php');
+    header('Location: install.php');
     exit;
 }
 
-$uri  = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
-$raw  = !empty($_GET['page']) ? $_GET['page'] : ($uri !== '' && $uri !== 'index.php' ? $uri : 'dashboard');
+$raw  = $_GET['page'] ?? 'dashboard';
 $page = preg_replace('/[^a-z0-9_]/', '', strtolower($raw));
 
 if ($page === 'logout') {
     logoutUser();
-    header('Location: /login');
+    header('Location: index.php?page=login');
     exit;
 }
 
@@ -41,7 +40,7 @@ if ($page === 'login') {
         $username = trim($_POST['username'] ?? '');
         $password = $_POST['password'] ?? '';
         if (loginUser($username, $password)) {
-            header('Location: /dashboard');
+            header('Location: index.php?page=dashboard');
             exit;
         }
         $error = 'Identifiants incorrects.';
@@ -76,7 +75,7 @@ switch ($page) {
                 'alert_threshold' => (int) ($_POST['alert_threshold'] ?? 5),
             ];
             if (createProduct($data)) {
-                header('Location: /products');
+                header('Location: index.php?page=products');
                 exit;
             }
             $error = 'Erreur lors de la création du produit.';
@@ -99,7 +98,7 @@ switch ($page) {
                 'alert_threshold' => (int) ($_POST['alert_threshold'] ?? 5),
             ];
             if (updateProduct($id, $data)) {
-                header('Location: /products');
+                header('Location: index.php?page=products');
                 exit;
             }
             $error = 'Erreur lors de la modification du produit.';
@@ -111,7 +110,7 @@ switch ($page) {
     case 'products_delete':
         $id = (int) ($_GET['id'] ?? 0);
         deleteProduct($id);
-        header('Location: /products');
+        header('Location: index.php?page=products');
         exit;
 
     case 'stock_entry':
@@ -167,6 +166,6 @@ switch ($page) {
         break;
 
     default:
-        header('Location: /dashboard');
+        header('Location: index.php?page=dashboard');
         exit;
 }

@@ -45,7 +45,7 @@ function getCurrentUser(): ?array
 function requireLogin(): void
 {
     if (!isLoggedIn()) {
-        header('Location: /login');
+        header('Location: index.php?page=login');
         exit;
     }
 }
