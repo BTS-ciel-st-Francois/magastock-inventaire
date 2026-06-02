@@ -1,5 +1,0 @@
-database/database.sqlite
-.DS_Store
-vendor/
-node_modules/
-*.log
