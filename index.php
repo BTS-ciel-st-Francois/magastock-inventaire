@@ -17,6 +17,14 @@ require_once __DIR__ . '/functions/product_functions.php';
 require_once __DIR__ . '/functions/stock_functions.php';
 require_once __DIR__ . '/functions/user_functions.php';
 
+try {
+    $checkPdo = getDatabaseConnection();
+    $checkPdo->query('SELECT 1 FROM users LIMIT 1');
+} catch (PDOException $e) {
+    header('Location: /install.php');
+    exit;
+}
+
 $uri  = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
 $raw  = !empty($_GET['page']) ? $_GET['page'] : ($uri !== '' && $uri !== 'index.php' ? $uri : 'dashboard');
 $page = preg_replace('/[^a-z0-9_]/', '', strtolower($raw));

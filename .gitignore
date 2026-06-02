@@ -1,5 +1,4 @@
 database/database.sqlite
-install.php
 .DS_Store
 vendor/
 node_modules/
