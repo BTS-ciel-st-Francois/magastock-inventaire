@@ -8,7 +8,15 @@ require_once __DIR__ . '/functions/product_functions.php';
 require_once __DIR__ . '/functions/stock_functions.php';
 require_once __DIR__ . '/functions/user_functions.php';
 
-$page = $_GET['page'] ?? 'dashboard';
+$uri  = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
+$page = !empty($_GET['page']) ? $_GET['page'] : ($uri !== '' && $uri !== 'index.php' ? $uri : 'dashboard');
+
+if ($page === 'logout') {
+    require_once __DIR__ . '/functions/auth_functions.php';
+    logoutUser();
+    header('Location: /login');
+    exit;
+}
 
 if ($page === 'login') {
     $error = '';
@@ -16,7 +24,7 @@ if ($page === 'login') {
         $username = trim($_POST['username'] ?? '');
         $password = $_POST['password'] ?? '';
         if (loginUser($username, $password)) {
-            header('Location: index.php?page=dashboard');
+            header('Location: /dashboard');
             exit;
         }
         $error = 'Identifiants incorrects.';
@@ -51,7 +59,7 @@ switch ($page) {
                 'alert_threshold' => (int) ($_POST['alert_threshold'] ?? 5),
             ];
             if (createProduct($data)) {
-                header('Location: index.php?page=products');
+                header('Location: /products');
                 exit;
             }
             $error = 'Erreur lors de la création du produit.';
@@ -74,7 +82,7 @@ switch ($page) {
                 'alert_threshold' => (int) ($_POST['alert_threshold'] ?? 5),
             ];
             if (updateProduct($id, $data)) {
-                header('Location: index.php?page=products');
+                header('Location: /products');
                 exit;
             }
             $error = 'Erreur lors de la modification du produit.';
@@ -86,7 +94,7 @@ switch ($page) {
     case 'products_delete':
         $id = (int) ($_GET['id'] ?? 0);
         deleteProduct($id);
-        header('Location: index.php?page=products');
+        header('Location: /products');
         exit;
 
     case 'stock_entry':
@@ -142,6 +150,6 @@ switch ($page) {
         break;
 
     default:
-        header('Location: index.php?page=dashboard');
+        header('Location: /dashboard');
         exit;
 }
