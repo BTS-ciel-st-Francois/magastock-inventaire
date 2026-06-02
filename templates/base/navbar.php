@@ -47,6 +47,7 @@
                 <li class="nav-item">
                     <span class="nav-link text-light">
                         <i class="bi bi-person-circle me-1"></i><?= htmlspecialchars($currentUser['username']) ?>
+                        <span class="badge bg-light text-dark ms-1"><?= htmlspecialchars($currentUser['role']) ?></span>
                     </span>
                 </li>
                 <li class="nav-item">

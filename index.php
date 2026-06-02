@@ -10,7 +10,6 @@ require_once __DIR__ . '/functions/user_functions.php';
 
 $page = $_GET['page'] ?? 'dashboard';
 
-// ── Page de connexion (pas de session requise) ──────────────────────────────
 if ($page === 'login') {
     $error = '';
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -26,10 +25,8 @@ if ($page === 'login') {
     exit;
 }
 
-// ── Toutes les autres pages nécessitent une session ─────────────────────────
 requireLogin();
 
-// ── Routeur ──────────────────────────────────────────────────────────────────
 switch ($page) {
 
     case 'dashboard':

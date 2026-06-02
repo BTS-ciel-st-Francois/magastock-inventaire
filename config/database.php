@@ -2,12 +2,10 @@
 
 function getDatabaseConnection(): PDO
 {
-    $dbPath = __DIR__ . '/../database/database.sqlite';
-
-    $pdo = new PDO('sqlite:' . $dbPath);
+    $dsn = 'mysql:host=localhost;port=3306;dbname=MegaStock_;charset=utf8mb4';
+    $pdo = new PDO($dsn, 'securost', 'i1OV1b*T0zwkhf@n');
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-    $pdo->exec('PRAGMA foreign_keys = ON;');
 
     return $pdo;
 }
