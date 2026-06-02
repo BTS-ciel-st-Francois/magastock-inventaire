@@ -10,6 +10,7 @@ function loginUser(string $username, string $password): bool
     $user = $stmt->fetch();
 
     if ($user && password_verify($password, $user['password'])) {
+        session_regenerate_id(true);
         $_SESSION['user'] = [
             'id'       => $user['id'],
             'username' => $user['username'],

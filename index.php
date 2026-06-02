@@ -1,4 +1,13 @@
 <?php
+ob_start();
+
+session_set_cookie_params([
+    'lifetime' => 0,
+    'path'     => '/',
+    'secure'   => true,
+    'httponly' => true,
+    'samesite' => 'Lax',
+]);
 session_start();
 
 require_once __DIR__ . '/config/database.php';
@@ -9,10 +18,10 @@ require_once __DIR__ . '/functions/stock_functions.php';
 require_once __DIR__ . '/functions/user_functions.php';
 
 $uri  = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
-$page = !empty($_GET['page']) ? $_GET['page'] : ($uri !== '' && $uri !== 'index.php' ? $uri : 'dashboard');
+$raw  = !empty($_GET['page']) ? $_GET['page'] : ($uri !== '' && $uri !== 'index.php' ? $uri : 'dashboard');
+$page = preg_replace('/[^a-z0-9_]/', '', strtolower($raw));
 
 if ($page === 'logout') {
-    require_once __DIR__ . '/functions/auth_functions.php';
     logoutUser();
     header('Location: /login');
     exit;
